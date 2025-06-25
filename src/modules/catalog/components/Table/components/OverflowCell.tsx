@@ -1,26 +1,14 @@
-import { TableCell, Tooltip } from "@mui/material";
-import { css } from "@emotion/react";
-import type { ReactNode } from "react";
+import { Tooltip } from "@mui/material";
+import { StyledOverflowCell } from "./styles.ts";
 
 type OverflowCellProps = {
-  children: ReactNode;
+  children: string;
 };
 
 export const OverflowCell = ({ children }: OverflowCellProps) => {
-  const text = String(children);
-
   return (
-    <Tooltip title={text} arrow placement="top">
-      <TableCell
-        sx={css`
-          max-width: 200px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        `}
-      >
-        {text}
-      </TableCell>
+    <Tooltip title={children} arrow placement="top">
+      <StyledOverflowCell>{children}</StyledOverflowCell>
     </Tooltip>
   );
 };

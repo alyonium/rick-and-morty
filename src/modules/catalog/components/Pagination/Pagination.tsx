@@ -13,6 +13,7 @@ export const Pagination = ({
 }: PaginationProps) => {
   return (
     <TablePagination
+      component="div"
       count={count}
       onPageChange={(e, pageNumber) => onPageChange(pageNumber)}
       page={currentPage}

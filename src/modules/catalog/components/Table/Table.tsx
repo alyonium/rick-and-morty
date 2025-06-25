@@ -32,13 +32,17 @@ export const Table = ({ data }: TableProps) => {
 
               if (col.overflow) {
                 return (
-                  <OverflowCell key={`${col}-${row.id}`}>
+                  <OverflowCell key={`${col.fieldKey}-${row.id}`}>
                     {content}
                   </OverflowCell>
                 );
               }
 
-              return <TableCell key={`${col}-${row.id}`}>{content}</TableCell>;
+              return (
+                <TableCell key={`${col.fieldKey}-${row.id}`}>
+                  {content}
+                </TableCell>
+              );
             })}
           </TableRow>
         );

@@ -5,13 +5,11 @@ import type {
 } from "../../api/__generated__/graphql.ts";
 import { GET_CHARACTERS } from "../../api/queries/charactersTable.ts";
 import {
-  Paper,
-  TableContainer,
   Table,
   TableHead,
-  TableBody,
   TableRow,
   TableCell,
+  CircularProgress,
 } from "@mui/material";
 import { COLUMNS } from "./columns.ts";
 import { Filter } from "./components/Filter/Filter.tsx";
@@ -19,6 +17,13 @@ import { useState } from "react";
 import { DEFAULT_PAGE } from "./utils.ts";
 import { Table as TableContent } from "./components/Table/Table.tsx";
 import { Pagination } from "./components/Pagination/Pagination.tsx";
+import {
+  StyledContainer,
+  StyledLoaderWrapper,
+  StyledTableBody,
+  StyledTableContainer,
+} from "./styles.ts";
+import PageWrapper from "../../components/PageWrapper/PageWrapper.tsx";
 
 // MUI table first page = 0; API first page = 1
 const CatalogPage = () => {
@@ -46,38 +51,46 @@ const CatalogPage = () => {
     });
   };
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
   return (
-    <TableContainer component={Paper}>
-      <Filter onSearch={onSearch} />
+    <PageWrapper title="characters catalog">
+      <StyledContainer>
+        <Filter onSearch={onSearch} />
 
-      <Table>
-        <TableHead>
-          <TableRow>
-            {COLUMNS.map((col) => (
-              <TableCell key={col.fieldKey}>{col.fieldName}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
+        {loading ? (
+          <StyledLoaderWrapper>
+            <CircularProgress />
+          </StyledLoaderWrapper>
+        ) : (
+          <StyledTableContainer>
+            <Table stickyHeader>
+              <TableHead>
+                <TableRow>
+                  {COLUMNS.map((col) => (
+                    <TableCell key={col.fieldKey} width="220px">
+                      {col.fieldName}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
 
-        <TableBody>
-          <TableContent data={data?.characters?.results as Character[]} />
-
-          <TableRow>
-            <Pagination
-              count={data?.characters?.info?.count || 0}
-              onPageChange={(page: number) => {
-                setCurrentPage(page);
-                updateTable(page, debounceInputValue);
-              }}
-              currentPage={currentPage}
-            />
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+              <StyledTableBody>
+                <TableContent data={data?.characters?.results as Character[]} />
+              </StyledTableBody>
+            </Table>
+          </StyledTableContainer>
+        )}
+        <Pagination
+          count={data?.characters?.info?.count || 0}
+          onPageChange={(page: number) => {
+            setCurrentPage(page);
+            updateTable(page, debounceInputValue);
+          }}
+          currentPage={currentPage}
+        />
+      </StyledContainer>
+    </PageWrapper>
   );
 };
 
