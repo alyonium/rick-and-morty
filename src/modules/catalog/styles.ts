@@ -11,10 +11,9 @@ export const StyledContainer = styled(Container)`
 export const StyledTableContainer = styled(Paper)`
   height: 440px;
   overflow: auto;
-  background-color: ${({ theme }) => theme.palette.background.paper};
 `;
 
-export const StyledLoaderWrapper = styled.div`
+export const StyledContentWrapper = styled.div`
   height: 440px;
   width: 100%;
   display: flex;

@@ -10,6 +10,7 @@ import {
   TableRow,
   TableCell,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import { COLUMNS } from "./columns.ts";
 import { Filter } from "./components/Filter/Filter.tsx";
@@ -19,7 +20,7 @@ import { Table as TableContent } from "./components/Table/Table.tsx";
 import { Pagination } from "./components/Pagination/Pagination.tsx";
 import {
   StyledContainer,
-  StyledLoaderWrapper,
+  StyledContentWrapper,
   StyledTableBody,
   StyledTableContainer,
 } from "./styles.ts";
@@ -51,36 +52,47 @@ const CatalogPage = () => {
     });
   };
 
-  if (error) return <p>Error : {error.message}</p>;
-
   return (
     <PageWrapper title="characters catalog">
       <StyledContainer>
         <Filter onSearch={onSearch} />
 
-        {loading ? (
-          <StyledLoaderWrapper>
+        {loading && (
+          <StyledContentWrapper>
             <CircularProgress />
-          </StyledLoaderWrapper>
-        ) : (
-          <StyledTableContainer>
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  {COLUMNS.map((col) => (
-                    <TableCell key={col.fieldKey} width="220px">
-                      {col.fieldName}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <StyledTableBody>
-                <TableContent data={data?.characters?.results as Character[]} />
-              </StyledTableBody>
-            </Table>
-          </StyledTableContainer>
+          </StyledContentWrapper>
         )}
+
+        {error && (
+          <StyledContentWrapper>
+            <Typography variant="body1">Error: {error.message}</Typography>
+          </StyledContentWrapper>
+        )}
+
+        {data?.characters?.results?.length === 0 && (
+          <StyledContentWrapper>
+            <Typography variant="body1">No data</Typography>
+          </StyledContentWrapper>
+        )}
+
+        <StyledTableContainer>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                {COLUMNS.map((col) => (
+                  <TableCell key={col.fieldKey} width="220px">
+                    {col.fieldName}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+
+            <StyledTableBody>
+              <TableContent data={data?.characters?.results as Character[]} />
+            </StyledTableBody>
+          </Table>
+        </StyledTableContainer>
+
         <Pagination
           count={data?.characters?.info?.count || 0}
           onPageChange={(page: number) => {
