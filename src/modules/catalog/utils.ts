@@ -1,5 +1,2 @@
-export const getCurrentPaginationOptions = () => {
-  return {
-    page: 0,
-  };
-};
+// MUI table first page = 0; API first page = 1
+export const DEFAULT_PAGE = 0;

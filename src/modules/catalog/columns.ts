@@ -6,6 +6,7 @@ type ColumnType = {
   fieldName: string;
   fieldKey: keyof Character;
   type: CellType;
+  overflow?: boolean;
 };
 
 export const COLUMNS: ColumnType[] = [
@@ -43,5 +44,6 @@ export const COLUMNS: ColumnType[] = [
     fieldName: "Episodes",
     fieldKey: "episode",
     type: "array",
+    overflow: true,
   },
 ];
