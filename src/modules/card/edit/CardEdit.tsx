@@ -1,50 +1,29 @@
 import type { Character } from "../../../api/__generated__/graphql.ts";
 import { useFormik } from "formik";
-import { TextField, Button, Autocomplete, Avatar } from "@mui/material";
+import { TextField, Autocomplete, Avatar, Stack, Button } from "@mui/material";
 import { validationSchema } from "./validationSchema.ts";
-import { StyledStack } from "../styles.ts";
+import { StyledButton, StyledStack } from "../styles.ts";
 import SelectPicker from "./components/SelectPicker.tsx";
 import { GenderOptions, StatusOptions } from "./data.ts";
-import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { UPDATE_CHARACTER_LOCAL } from "../../../api/mutations/card/updateCharacterPage.ts";
+import { Link, useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../router/const.ts";
+import { convertDataToFrontend, convertDataToBackend } from "./convertData.ts";
 
 type CardEditProps = {
   defaultData: Character;
 };
 
 const CardEdit = ({ defaultData }: CardEditProps) => {
+  const navigate = useNavigate();
   const [updateCharacterLocal] = useMutation(UPDATE_CHARACTER_LOCAL);
 
-  const convertDataToBackendFormat = (values) => {
-    return {
-      name: values.name,
-      species: values.species,
-      status: StatusOptions.find((item) => {
-        return item.value === values.status;
-      })?.label,
-      gender: GenderOptions.find((item) => {
-        return item.value === values.gender;
-      })?.label,
-    };
-  };
-
   const formik = useFormik({
-    initialValues: {
-      name: defaultData.name,
-      species: defaultData.species,
-      status: StatusOptions.find((item) => item.label === defaultData.status)
-        ?.value,
-      gender: GenderOptions.find((item) => item.label === defaultData.gender)
-        ?.value,
-      location: +defaultData?.location?.id,
-      episode: defaultData.episode.map((item) => {
-        return { id: item?.id, label: item?.name };
-      }),
-    },
+    initialValues: convertDataToFrontend(defaultData),
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const updatedCharacter = convertDataToBackendFormat(values);
+      const updatedCharacter = convertDataToBackend(values);
 
       const character = JSON.parse(
         localStorage.getItem(`character:${defaultData.id}`),
@@ -64,11 +43,32 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
           ...updatedCharacter,
         }),
       );
+
+      navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`);
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      <Stack pb="10px">
+        <Link to={ROUTE.CATALOG} style={{ width: "100%" }}>
+          <Button color="secondary" variant="contained" fullWidth>
+            Back to catalog
+          </Button>
+        </Link>
+      </Stack>
+      <Stack spacing={1} direction="row" pb="10px">
+        <StyledButton color="primary" variant="contained" type="submit">
+          Save
+        </StyledButton>
+        <StyledButton
+          color="error"
+          variant="contained"
+          onClick={() => navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`)}
+        >
+          Cancel
+        </StyledButton>
+      </Stack>
       <StyledStack spacing={2}>
         <Avatar alt={defaultData.name} src={defaultData.image} />
         <TextField
@@ -99,7 +99,8 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
           name="gender"
           label="Gender"
           options={GenderOptions}
-          defaultValue={formik.values.gender}
+          value={formik.values.gender}
+          onChange={formik.handleChange}
         />
         <SelectPicker
           fullWidth
@@ -107,7 +108,8 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
           name="status"
           label="Status"
           options={StatusOptions}
-          defaultValue={formik.values.status}
+          value={formik.values.status}
+          onChange={formik.handleChange}
         />
         {/*Paginated API doesn't suit well for array and object edit*/}
         <SelectPicker
@@ -137,14 +139,6 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
             <TextField {...params} variant="outlined" label="Episodes" />
           )}
         />
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Save
-        </Button>
-        <Link to={`/card/view/${defaultData.id}`} style={{ width: "100%" }}>
-          <Button color="error" variant="contained" fullWidth>
-            Cancel
-          </Button>
-        </Link>
       </StyledStack>
     </form>
   );

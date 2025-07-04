@@ -1,30 +1,30 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CardEdit from "./edit/CardEdit.tsx";
 import CardView from "./view/CardView.tsx";
-import { CARD_MODE } from "../../router/const.ts";
+import { CARD_MODE, ROUTE } from "../../router/const.ts";
 import { useQuery } from "@apollo/client";
 import type { GetCharacterQuery } from "../../api/__generated__/graphql.ts";
 import { GET_CHARACTER } from "../../api/queries/card/characterPage.ts";
 import PageWrapper from "../../components/PageWrapper/PageWrapper.tsx";
 import { useMemo } from "react";
+import { StyledContentWrapper } from "../catalog/styles.ts";
+import { Button, CircularProgress, Typography, Stack } from "@mui/material";
 
 const CardPage = () => {
-  const urlParams = useParams();
+  const { cardMode, cardId } = useParams();
 
   const { loading, error, data } = useQuery<GetCharacterQuery>(GET_CHARACTER, {
     variables: {
-      id: urlParams.cardId,
+      id: cardId,
     },
   });
 
   const updatedCharacterData = useMemo(() => {
     if (data?.character === null) {
-      return "empty";
+      return null;
     }
 
-    const character = JSON.parse(
-      localStorage.getItem(`character:${urlParams.cardId}`),
-    );
+    const character = JSON.parse(localStorage.getItem(`character:${cardId}`));
 
     if (character) {
       return {
@@ -34,31 +34,43 @@ const CardPage = () => {
     } else {
       return data?.character;
     }
-  }, [data]);
+  }, [data, cardMode]);
 
-  if (loading) {
-    return <div>loading...</div>;
-  }
-
-  if (error) {
-    return <div>error</div>;
-  }
-
-  if (urlParams.cardMode === CARD_MODE.EDIT) {
+  if (error || data?.character === null) {
     return (
-      <PageWrapper title={`${updatedCharacterData.name} card`}>
+      <PageWrapper>
+        <Stack spacing={2} alignItems="center">
+          <Typography variant="h3" color="textSecondary">
+            Error
+          </Typography>
+
+          <Link to={ROUTE.CATALOG} style={{ width: "100%" }}>
+            <Button color="secondary" variant="contained" fullWidth>
+              Back to catalog
+            </Button>
+          </Link>
+        </Stack>
+      </PageWrapper>
+    );
+  }
+
+  return (
+    <PageWrapper>
+      {loading && (
+        <StyledContentWrapper>
+          <CircularProgress />
+        </StyledContentWrapper>
+      )}
+
+      {cardMode === CARD_MODE.EDIT && !loading && (
         <CardEdit defaultData={updatedCharacterData} />
-      </PageWrapper>
-    );
-  }
+      )}
 
-  if (urlParams.cardMode === CARD_MODE.VIEW) {
-    return (
-      <PageWrapper title={`${updatedCharacterData.name} card`}>
+      {cardMode === CARD_MODE.VIEW && !loading && (
         <CardView data={updatedCharacterData} />
-      </PageWrapper>
-    );
-  }
+      )}
+    </PageWrapper>
+  );
 };
 
 export default CardPage;

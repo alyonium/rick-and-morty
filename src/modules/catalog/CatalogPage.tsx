@@ -72,6 +72,7 @@ const CatalogPage = () => {
   }, [data]);
 
   const onSearch = (searchValue: string) => {
+    // Search work through API and doesn't check edited values
     setDebounceInputValue(searchValue);
     setCurrentPage(DEFAULT_PAGE);
     updateTable(DEFAULT_PAGE, searchValue);
@@ -103,13 +104,13 @@ const CatalogPage = () => {
           </StyledContentWrapper>
         )}
 
-        {updatedTableData?.results?.length === 0 && (
+        {!loading && updatedTableData?.results?.length === 0 && (
           <StyledContentWrapper>
             <Typography variant="body1">No data</Typography>
           </StyledContentWrapper>
         )}
 
-        {updatedTableData?.results?.length > 0 && (
+        {!loading && updatedTableData?.results?.length > 0 && (
           <StyledTableContainer>
             <Table stickyHeader>
               <TableHead>

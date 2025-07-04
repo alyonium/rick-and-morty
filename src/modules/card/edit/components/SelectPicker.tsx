@@ -6,11 +6,13 @@ import {
 } from "@mui/material";
 import type { SelectProps } from "@mui/material";
 
+export type OptionType = {
+  label: string;
+  value: number;
+};
+
 type SelectPickerProps = SelectProps & {
-  options: {
-    label: string;
-    value: number;
-  }[];
+  options: OptionType[];
 };
 
 const SelectPicker = ({ ...props }: SelectPickerProps) => {

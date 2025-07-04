@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 import RickAndMorty from "../../assets/RickandMorty.png";
 
 type PageWrapperProps = {
-  title: string;
+  title?: string;
   children: ReactNode;
 };
 
@@ -12,9 +12,11 @@ const PageWrapper = ({ children, title }: PageWrapperProps) => {
   return (
     <StyledPageWrapper>
       <StyledImage src={RickAndMorty} />
-      <Typography variant="h6" component="h1">
-        {title}
-      </Typography>
+      {title && (
+        <Typography variant="h6" component="h1">
+          {title}
+        </Typography>
+      )}
       <>{children}</>
     </StyledPageWrapper>
   );

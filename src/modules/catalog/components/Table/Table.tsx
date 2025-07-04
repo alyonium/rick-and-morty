@@ -1,18 +1,28 @@
 import type { Character } from "../../../../api/__generated__/graphql.ts";
-import { TableCell, TableRow } from "@mui/material";
+import { TableCell } from "@mui/material";
 import { COLUMNS } from "../../columns.ts";
 import { OverflowCell } from "./components/OverflowCell.tsx";
+import { StyledTableRow } from "./styles.ts";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../../router/const.ts";
 
 type TableProps = {
   data: Character[];
 };
 
 export const Table = ({ data }: TableProps) => {
+  const navigate = useNavigate();
+
   return (
     <>
       {data.map((row: Character) => {
         return (
-          <TableRow key={row.id}>
+          <StyledTableRow
+            key={row.id}
+            onClick={() => {
+              navigate(`${ROUTE.CARD_VIEW}/${row.id}`);
+            }}
+          >
             {COLUMNS.map((col) => {
               let content = undefined;
 
@@ -44,7 +54,7 @@ export const Table = ({ data }: TableProps) => {
                 </TableCell>
               );
             })}
-          </TableRow>
+          </StyledTableRow>
         );
       })}
     </>
