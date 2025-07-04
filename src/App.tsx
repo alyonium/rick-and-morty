@@ -1,10 +1,10 @@
-import "./App.css";
 import AppRouter from "./router/AppRouter.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { green, yellow } from "@mui/material/colors";
 import { CssBaseline } from "@mui/material";
+import { Global, css } from "@emotion/react";
 
 const theme = createTheme({
   palette: {
@@ -26,6 +26,15 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter basename="/">
         <CssBaseline />
+        <Global
+          styles={css`
+            body {
+              padding: 0;
+              margin: 0;
+              overflow-x: hidden;
+            }
+          `}
+        />
         <AppRouter />
       </BrowserRouter>
     </ThemeProvider>

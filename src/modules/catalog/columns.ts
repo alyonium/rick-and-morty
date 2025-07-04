@@ -16,11 +16,6 @@ export const COLUMNS: ColumnType[] = [
     type: "string",
   },
   {
-    fieldName: "Type",
-    fieldKey: "type",
-    type: "string",
-  },
-  {
     fieldName: "Species",
     fieldKey: "species",
     type: "string",
@@ -29,11 +24,6 @@ export const COLUMNS: ColumnType[] = [
     fieldName: "Gender",
     fieldKey: "gender",
     type: "string",
-  },
-  {
-    fieldName: "Origin",
-    fieldKey: "origin",
-    type: "object",
   },
   {
     fieldName: "Location",

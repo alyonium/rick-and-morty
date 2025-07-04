@@ -28,6 +28,7 @@ export const Filter = ({ onSearch }: FilterProps) => {
   return (
     <TextField
       fullWidth
+      size="small"
       variant="outlined"
       placeholder="Search"
       value={input}

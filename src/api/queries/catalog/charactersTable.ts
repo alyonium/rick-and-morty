@@ -13,12 +13,8 @@ export const GET_CHARACTERS = gql(`
             id
             name
             species
-            type
+            status
             gender
-            origin {
-              id
-              name
-            }
             location {
               id
               name
