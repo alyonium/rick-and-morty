@@ -4,7 +4,7 @@ export const CARD_MODE = {
 };
 
 export const ROUTE = {
-  CATALOG: '/catalog',
+  CATALOG: '/',
   CARD: '/card',
   CARD_EDIT: `/card/${CARD_MODE.EDIT}`,
   CARD_VIEW: `/card/${CARD_MODE.VIEW}`,
