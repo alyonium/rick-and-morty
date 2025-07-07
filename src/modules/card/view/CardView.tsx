@@ -27,6 +27,7 @@ const CardView = ({ data }: CardViewProps) => {
             navigate(ROUTE.CATALOG, {
               state: {
                 catalogPage: location.state?.catalogPage,
+                search: location.state?.search,
               },
             });
           }}
@@ -43,6 +44,7 @@ const CardView = ({ data }: CardViewProps) => {
             navigate(`${ROUTE.CARD_EDIT}/${data.id}`, {
               state: {
                 catalogPage: location.state?.catalogPage,
+                search: location.state?.search,
               },
             });
           }}

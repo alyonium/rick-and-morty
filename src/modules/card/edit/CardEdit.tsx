@@ -48,6 +48,7 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
       navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`, {
         state: {
           catalogPage: location.state?.catalogPage,
+          search: location.state?.search,
         },
       });
     },
@@ -60,13 +61,14 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
           color="secondary"
           variant="contained"
           fullWidth
-          onClick={() =>
+          onClick={() => {
             navigate(ROUTE.CATALOG, {
               state: {
                 catalogPage: location.state?.catalogPage,
+                search: location.state?.search,
               },
-            })
-          }
+            });
+          }}
         >
           Back to catalog
         </Button>
@@ -78,13 +80,14 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
         <StyledButton
           color="error"
           variant="contained"
-          onClick={() =>
+          onClick={() => {
             navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`, {
               state: {
                 catalogPage: location.state?.catalogPage,
+                search: location.state?.search,
               },
-            })
-          }
+            });
+          }}
         >
           Cancel
         </StyledButton>

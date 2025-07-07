@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import { COLUMNS } from "./columns.ts";
 import { Filter } from "./components/Filter/Filter.tsx";
-import { useMemo, useState } from "react";
-import { DEFAULT_PAGE } from "./utils.ts";
+import { useMemo } from "react";
+import { DEFAULT_PAGE, DEFAULT_SEARCH } from "./utils.ts";
 import { Table as TableContent } from "./components/Table/Table.tsx";
 import { Pagination } from "./components/Pagination/Pagination.tsx";
 import {
@@ -34,17 +34,43 @@ const CatalogPage = () => {
   const location = useLocation();
 
   useEffect(() => {
+    if (location.state?.catalogPage && location.state?.search) {
+      setSearchParams({
+        catalogPage: `${location.state?.catalogPage}`,
+        search: location.state?.search,
+      });
+      return;
+    }
+
     if (location.state?.catalogPage) {
-      setSearchParams({ catalogPage: `${location.state.catalogPage}` });
+      setSearchParams({
+        catalogPage: `${location.state?.catalogPage}`,
+        search: DEFAULT_SEARCH,
+      });
+      return;
+    }
+
+    if (location.state?.search) {
+      setSearchParams({
+        search: location.state?.search,
+        catalogPage: `${DEFAULT_PAGE}`,
+      });
+      return;
     }
   }, [location.state]);
-  const [debounceInputValue, setDebounceInputValue] = useState<string>("");
+
   const { loading, error, data, refetch } = useQuery<GetCharactersQuery>(
     GET_CHARACTERS,
     {
       variables: {
         page:
-          location.state?.catalogPage || +searchParams.get("catalogPage") + 1,
+          location.state?.catalogPage ||
+          +searchParams.get("catalogPage") + 1 ||
+          DEFAULT_PAGE + 1,
+        name:
+          location.state?.search ||
+          searchParams.get("search") ||
+          DEFAULT_SEARCH,
       },
     },
   );
@@ -83,8 +109,7 @@ const CatalogPage = () => {
 
   const onSearch = (searchValue: string) => {
     // Search work through API and doesn't check edited values
-    setDebounceInputValue(searchValue);
-    setSearchParams({ catalogPage: `${DEFAULT_PAGE}` });
+    setSearchParams({ catalogPage: `${DEFAULT_PAGE}`, search: searchValue });
     updateTable(DEFAULT_PAGE, searchValue);
   };
 
@@ -143,8 +168,11 @@ const CatalogPage = () => {
         <Pagination
           count={updatedTableData?.info?.count || 0}
           onPageChange={(page: number) => {
-            setSearchParams({ catalogPage: `${page}` });
-            updateTable(page, debounceInputValue);
+            setSearchParams({
+              catalogPage: `${page}`,
+              search: searchParams.get("search") || DEFAULT_SEARCH,
+            });
+            updateTable(page, searchParams.get("search") || DEFAULT_SEARCH);
           }}
           currentPage={+searchParams.get("catalogPage") || DEFAULT_PAGE}
         />

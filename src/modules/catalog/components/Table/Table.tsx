@@ -5,6 +5,7 @@ import { OverflowCell } from "./components/OverflowCell.tsx";
 import { StyledTableRow } from "./styles.ts";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTE } from "../../../../router/const.ts";
+import { DEFAULT_SEARCH } from "../../utils.ts";
 
 type TableProps = {
   data: Character[];
@@ -24,6 +25,7 @@ export const Table = ({ data }: TableProps) => {
               navigate(`${ROUTE.CARD_VIEW}/${row.id}`, {
                 state: {
                   catalogPage: +searchParams.get("catalogPage"),
+                  search: searchParams.get("search") || DEFAULT_SEARCH,
                 },
               });
             }}
