@@ -21,7 +21,7 @@ export const Filter = ({ onSearch }: FilterProps) => {
       debounce((value: string) => {
         onSearch(value);
       }, 400),
-    [onSearch],
+    [],
   );
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const Filter = ({ onSearch }: FilterProps) => {
     return () => {
       debouncedLog.cancel();
     };
-  }, [input, isValueChanged, debouncedLog]);
+  }, [input]);
 
   return (
     <TextField

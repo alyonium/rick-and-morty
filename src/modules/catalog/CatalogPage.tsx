@@ -57,7 +57,7 @@ const CatalogPage = () => {
       });
       return;
     }
-  }, [setSearchParams, location.state]);
+  }, [location.state]);
 
   const { loading, error, data, refetch } = useQuery<GetCharactersQuery>(
     GET_CHARACTERS,
