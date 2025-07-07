@@ -1,4 +1,4 @@
-# Rick and Morty API-based app
+# Rick and Morty [API](https://rickandmortyapi.com/)-based app
 
 ### Stack:
 
