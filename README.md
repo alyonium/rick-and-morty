@@ -1,5 +1,9 @@
 # Rick and Morty [API](https://rickandmortyapi.com/)-based app
 
+### Deploy:
+
+[View deploy 👆🏻](https://alyonium.github.io/rick-and-morty)
+
 ### Stack:
 
 - React (Vite)
