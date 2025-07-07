@@ -149,40 +149,44 @@ const CatalogPage = () => {
         )}
 
         {!loading && updatedTableData?.results?.length > 0 && (
-          <StyledTableContainer>
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  {COLUMNS.map((col) => (
-                    <TableCell key={col.fieldKey} width="220px">
-                      {col.fieldName}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
+          <>
+            <StyledTableContainer>
+              <Table stickyHeader>
+                <TableHead>
+                  <TableRow>
+                    {COLUMNS.map((col) => (
+                      <TableCell key={col.fieldKey} width="220px">
+                        {col.fieldName}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
 
-              <StyledTableBody>
-                <TableContent data={updatedTableData?.results as Character[]} />
-              </StyledTableBody>
-            </Table>
-          </StyledTableContainer>
+                <StyledTableBody>
+                  <TableContent
+                    data={updatedTableData?.results as Character[]}
+                  />
+                </StyledTableBody>
+              </Table>
+            </StyledTableContainer>
+
+            <Pagination
+              count={updatedTableData?.info?.count || 0}
+              onPageChange={(page: number) => {
+                setSearchParams({
+                  catalogPage: `${page}`,
+                  search: searchParams.get("search") || DEFAULT_SEARCH,
+                });
+                updateTable(page, searchParams.get("search") || DEFAULT_SEARCH);
+              }}
+              currentPage={
+                (searchParams.get("catalogPage") &&
+                  +(searchParams.get("catalogPage") as string)) ||
+                DEFAULT_PAGE
+              }
+            />
+          </>
         )}
-
-        <Pagination
-          count={updatedTableData?.info?.count || 0}
-          onPageChange={(page: number) => {
-            setSearchParams({
-              catalogPage: `${page}`,
-              search: searchParams.get("search") || DEFAULT_SEARCH,
-            });
-            updateTable(page, searchParams.get("search") || DEFAULT_SEARCH);
-          }}
-          currentPage={
-            (searchParams.get("catalogPage") &&
-              +(searchParams.get("catalogPage") as string)) ||
-            DEFAULT_PAGE
-          }
-        />
       </StyledContainer>
     </PageWrapper>
   );
