@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import debounce from "lodash/debounce";
 import { useLocation, useSearchParams } from "react-router-dom";
-import { DEFAULT_SEARCH } from "../../utils.ts";
+import { DEFAULT_SEARCH } from "utils/const.ts";
 
 type FilterProps = {
   onSearch: (value: string) => void;

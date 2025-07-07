@@ -1,5 +1,5 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
-import { BASE_URL } from "./src/utils/const";
+import { BASE_URL } from "utils/const";
 
 const config: CodegenConfig = {
   schema: BASE_URL,

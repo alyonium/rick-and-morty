@@ -1,15 +1,15 @@
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import CardEdit from "./edit/CardEdit.tsx";
 import CardView from "./view/CardView.tsx";
-import { CARD_MODE, ROUTE } from "../../router/const.ts";
+import { CARD_MODE, ROUTE } from "router/const.ts";
 import { useQuery } from "@apollo/client";
-import type { GetCharacterQuery } from "../../api/__generated__/graphql.ts";
-import { GET_CHARACTER } from "../../api/queries/card/characterPage.ts";
-import PageWrapper from "../../components/PageWrapper/PageWrapper.tsx";
+import type { GetCharacterQuery } from "api/__generated__/graphql.ts";
+import { GET_CHARACTER } from "api/queries/card/characterPage.ts";
+import PageWrapper from "components/PageWrapper/PageWrapper.tsx";
 import { useMemo } from "react";
 import { StyledContentWrapper } from "../catalog/styles.ts";
 import { Button, CircularProgress, Typography, Stack } from "@mui/material";
-import { DEFAULT_PAGE } from "../catalog/utils.ts";
+import { DEFAULT_PAGE } from "utils/const.ts";
 
 const CardPage = () => {
   const navigate = useNavigate();

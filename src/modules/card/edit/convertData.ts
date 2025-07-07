@@ -1,5 +1,5 @@
 import { GenderOptions, StatusOptions } from "./data.ts";
-import type { Character } from "../../../api/__generated__/graphql.ts";
+import type { Character } from "api/__generated__/graphql.ts";
 
 export type UpdatedCharacterType = {
   name: string;

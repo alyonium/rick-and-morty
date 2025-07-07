@@ -1,4 +1,4 @@
-import type { Character } from "../../../api/__generated__/graphql.ts";
+import type { Character } from "api/__generated__/graphql.ts";
 import { useFormik } from "formik";
 import { TextField, Autocomplete, Avatar, Stack, Button } from "@mui/material";
 import { validationSchema } from "./validationSchema.ts";
@@ -6,9 +6,9 @@ import { StyledButton, StyledStack } from "../styles.ts";
 import SelectPicker from "./components/SelectPicker.tsx";
 import { GenderOptions, StatusOptions } from "./data.ts";
 import { useMutation } from "@apollo/client";
-import { UPDATE_CHARACTER_LOCAL } from "../../../api/mutations/card/updateCharacterPage.ts";
+import { UPDATE_CHARACTER_LOCAL } from "api/mutations/card/updateCharacterPage.ts";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ROUTE } from "../../../router/const.ts";
+import { ROUTE } from "router/const.ts";
 import { convertDataToFrontend, convertDataToBackend } from "./convertData.ts";
 
 type CardEditProps = {

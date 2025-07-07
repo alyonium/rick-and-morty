@@ -1,4 +1,4 @@
-import type { Character } from "../../api/__generated__/graphql.ts";
+import type { Character } from "api/__generated__/graphql.ts";
 
 type CellType = "string" | "array" | "object";
 

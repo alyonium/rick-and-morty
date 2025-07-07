@@ -1,11 +1,11 @@
-import type { Character } from "../../../../api/__generated__/graphql.ts";
+import type { Character } from "api/__generated__/graphql.ts";
 import { TableCell } from "@mui/material";
 import { COLUMNS, type ObjectType, type ArrayType } from "../../columns.ts";
 import { OverflowCell } from "./components/OverflowCell.tsx";
 import { StyledTableRow } from "./styles.ts";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ROUTE } from "../../../../router/const.ts";
-import { DEFAULT_SEARCH } from "../../utils.ts";
+import { ROUTE } from "router/const.ts";
+import { DEFAULT_SEARCH } from "utils/const.ts";
 
 type TableProps = {
   data: Character[];
@@ -50,11 +50,16 @@ export const Table = ({ data }: TableProps) => {
               }
 
               if (col.overflow) {
-                return <OverflowCell content={content} />;
+                return (
+                  <OverflowCell
+                    key={`${col.fieldKey as string}-${row.id}`}
+                    content={content}
+                  />
+                );
               }
 
               return (
-                <TableCell key={`${col.fieldKey}-${row.id}`}>
+                <TableCell key={`${col.fieldKey as string}-${row.id}`}>
                   {content}
                 </TableCell>
               );

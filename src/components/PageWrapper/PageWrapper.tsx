@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { StyledPageWrapper, StyledImage } from "./styles.ts";
 import { Typography } from "@mui/material";
-import RickAndMorty from "../../assets/RickandMorty.png";
+import RickAndMorty from "assets/RickandMorty.png";
 
 type PageWrapperProps = {
   title?: string;

@@ -2,8 +2,8 @@ import { useQuery } from "@apollo/client";
 import type {
   Character,
   GetCharactersQuery,
-} from "../../api/__generated__/graphql.ts";
-import { GET_CHARACTERS } from "../../api/queries/catalog/charactersTable.ts";
+} from "api/__generated__/graphql.ts";
+import { GET_CHARACTERS } from "api/queries/catalog/charactersTable.ts";
 import {
   Table,
   TableHead,
@@ -15,7 +15,7 @@ import {
 import { COLUMNS } from "./columns.ts";
 import { Filter } from "./components/Filter/Filter.tsx";
 import { useMemo } from "react";
-import { DEFAULT_PAGE, DEFAULT_SEARCH } from "./utils.ts";
+import { DEFAULT_PAGE, DEFAULT_SEARCH } from "utils/const.ts";
 import { Table as TableContent } from "./components/Table/Table.tsx";
 import { Pagination } from "./components/Pagination/Pagination.tsx";
 import {
@@ -24,7 +24,7 @@ import {
   StyledTableBody,
   StyledTableContainer,
 } from "./styles.ts";
-import PageWrapper from "../../components/PageWrapper/PageWrapper.tsx";
+import PageWrapper from "components/PageWrapper/PageWrapper.tsx";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -82,7 +82,7 @@ const CatalogPage = () => {
     }
 
     const updateFromLocalStorageData = data?.characters?.results?.map(
-      (item) => {
+      (item: Pick<Character, "id">) => {
         const character = localStorage.getItem(`character:${item?.id}`);
 
         if (character) {

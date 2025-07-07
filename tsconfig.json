@@ -1,11 +1,17 @@
 {
   "files": [],
   "compilerOptions": {
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
       "src/*": ["./src/*"],
       "api/*":["./src/api/*"],
-      "modules/*":["./src/modules/*"]
+      "assets/*":["./src/assets/*"],
+      "components/*":["./src/components/*"],
+      "modules/*":["./src/modules/*"],
+      "provider/*":["./src/provider/*"],
+      "router/*":["./src/router/*"],
+      "utils/*":["./src/utils/*"],
     }
   },
   "references": [
