@@ -25,16 +25,26 @@ import {
   StyledTableContainer,
 } from "./styles.ts";
 import PageWrapper from "../../components/PageWrapper/PageWrapper.tsx";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 // MUI table first page = 0; API first page = 1
 const CatalogPage = () => {
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.catalogPage) {
+      setSearchParams({ catalogPage: `${location.state.catalogPage}` });
+    }
+  }, [location.state]);
   const [debounceInputValue, setDebounceInputValue] = useState<string>("");
   const { loading, error, data, refetch } = useQuery<GetCharactersQuery>(
     GET_CHARACTERS,
     {
       variables: {
-        page: DEFAULT_PAGE + 1,
+        page:
+          location.state?.catalogPage || +searchParams.get("catalogPage") + 1,
       },
     },
   );
@@ -74,7 +84,7 @@ const CatalogPage = () => {
   const onSearch = (searchValue: string) => {
     // Search work through API and doesn't check edited values
     setDebounceInputValue(searchValue);
-    setCurrentPage(DEFAULT_PAGE);
+    setSearchParams({ catalogPage: `${DEFAULT_PAGE}` });
     updateTable(DEFAULT_PAGE, searchValue);
   };
 
@@ -133,10 +143,10 @@ const CatalogPage = () => {
         <Pagination
           count={updatedTableData?.info?.count || 0}
           onPageChange={(page: number) => {
-            setCurrentPage(page);
+            setSearchParams({ catalogPage: `${page}` });
             updateTable(page, debounceInputValue);
           }}
-          currentPage={currentPage}
+          currentPage={+searchParams.get("catalogPage") || DEFAULT_PAGE}
         />
       </StyledContainer>
     </PageWrapper>

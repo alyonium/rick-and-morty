@@ -7,7 +7,7 @@ import SelectPicker from "./components/SelectPicker.tsx";
 import { GenderOptions, StatusOptions } from "./data.ts";
 import { useMutation } from "@apollo/client";
 import { UPDATE_CHARACTER_LOCAL } from "../../../api/mutations/card/updateCharacterPage.ts";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../../../router/const.ts";
 import { convertDataToFrontend, convertDataToBackend } from "./convertData.ts";
 
@@ -17,6 +17,7 @@ type CardEditProps = {
 
 const CardEdit = ({ defaultData }: CardEditProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [updateCharacterLocal] = useMutation(UPDATE_CHARACTER_LOCAL);
 
   const formik = useFormik({
@@ -44,18 +45,31 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
         }),
       );
 
-      navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`);
+      navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`, {
+        state: {
+          catalogPage: location.state?.catalogPage,
+        },
+      });
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <Stack pb="10px">
-        <Link to={ROUTE.CATALOG} style={{ width: "100%" }}>
-          <Button color="secondary" variant="contained" fullWidth>
-            Back to catalog
-          </Button>
-        </Link>
+        <Button
+          color="secondary"
+          variant="contained"
+          fullWidth
+          onClick={() =>
+            navigate(ROUTE.CATALOG, {
+              state: {
+                catalogPage: location.state?.catalogPage,
+              },
+            })
+          }
+        >
+          Back to catalog
+        </Button>
       </Stack>
       <Stack spacing={1} direction="row" pb="10px">
         <StyledButton color="primary" variant="contained" type="submit">
@@ -64,7 +78,13 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
         <StyledButton
           color="error"
           variant="contained"
-          onClick={() => navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`)}
+          onClick={() =>
+            navigate(`${ROUTE.CARD_VIEW}/${defaultData.id}`, {
+              state: {
+                catalogPage: location.state?.catalogPage,
+              },
+            })
+          }
         >
           Cancel
         </StyledButton>

@@ -7,7 +7,8 @@ type FilterProps = {
 };
 
 export const Filter = ({ onSearch }: FilterProps) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState<string>("");
+  const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
   const debouncedLog = useMemo(
     () =>
@@ -18,6 +19,10 @@ export const Filter = ({ onSearch }: FilterProps) => {
   );
 
   useEffect(() => {
+    if (!isValueChanged) {
+      return;
+    }
+
     debouncedLog(input);
 
     return () => {
@@ -32,7 +37,10 @@ export const Filter = ({ onSearch }: FilterProps) => {
       variant="outlined"
       placeholder="Search"
       value={input}
-      onChange={(e) => setInput(e.target.value)}
+      onChange={(e) => {
+        setIsValueChanged(true);
+        setInput(e.target.value);
+      }}
     />
   );
 };

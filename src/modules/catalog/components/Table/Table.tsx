@@ -3,7 +3,7 @@ import { TableCell } from "@mui/material";
 import { COLUMNS } from "../../columns.ts";
 import { OverflowCell } from "./components/OverflowCell.tsx";
 import { StyledTableRow } from "./styles.ts";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTE } from "../../../../router/const.ts";
 
 type TableProps = {
@@ -12,6 +12,7 @@ type TableProps = {
 
 export const Table = ({ data }: TableProps) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   return (
     <>
@@ -20,7 +21,11 @@ export const Table = ({ data }: TableProps) => {
           <StyledTableRow
             key={row.id}
             onClick={() => {
-              navigate(`${ROUTE.CARD_VIEW}/${row.id}`);
+              navigate(`${ROUTE.CARD_VIEW}/${row.id}`, {
+                state: {
+                  catalogPage: +searchParams.get("catalogPage"),
+                },
+              });
             }}
           >
             {COLUMNS.map((col) => {
