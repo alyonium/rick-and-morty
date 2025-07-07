@@ -1,11 +1,11 @@
-import type { Character } from "api/__generated__/graphql.ts";
-import { Autocomplete, Avatar, Button, TextField, Stack } from "@mui/material";
-import SelectPicker from "../edit/components/SelectPicker.tsx";
-import { GenderOptions, StatusOptions } from "../edit/data.ts";
-import { useLocation, useNavigate } from "react-router-dom";
-import { StyledStack } from "../styles.ts";
-import { ROUTE } from "router/const.ts";
-import { convertDataToFrontend } from "../edit/convertData.ts";
+import type { Character } from 'api/__generated__/graphql.ts';
+import { Autocomplete, Avatar, Button, TextField, Stack } from '@mui/material';
+import SelectPicker from '../edit/components/SelectPicker.tsx';
+import { GenderOptions, StatusOptions } from '../edit/data.ts';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { StyledStack } from '../styles.ts';
+import { ROUTE } from 'router/const.ts';
+import { convertDataToFrontend } from '../edit/convertData.ts';
 
 type CardViewProps = {
   data: Character;

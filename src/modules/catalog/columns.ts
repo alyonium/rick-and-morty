@@ -1,6 +1,6 @@
-import type { Character } from "api/__generated__/graphql.ts";
+import type { Character } from 'api/__generated__/graphql.ts';
 
-type CellType = "string" | "array" | "object";
+type CellType = 'string' | 'array' | 'object';
 
 export type ObjectType = {
   id: string;
@@ -18,29 +18,29 @@ type ColumnType = {
 
 export const COLUMNS: ColumnType[] = [
   {
-    fieldName: "Name",
-    fieldKey: "name",
-    type: "string",
+    fieldName: 'Name',
+    fieldKey: 'name',
+    type: 'string',
   },
   {
-    fieldName: "Species",
-    fieldKey: "species",
-    type: "string",
+    fieldName: 'Species',
+    fieldKey: 'species',
+    type: 'string',
   },
   {
-    fieldName: "Gender",
-    fieldKey: "gender",
-    type: "string",
+    fieldName: 'Gender',
+    fieldKey: 'gender',
+    type: 'string',
   },
   {
-    fieldName: "Location",
-    fieldKey: "location",
-    type: "object",
+    fieldName: 'Location',
+    fieldKey: 'location',
+    type: 'object',
   },
   {
-    fieldName: "Episodes",
-    fieldKey: "episode",
-    type: "array",
+    fieldName: 'Episodes',
+    fieldKey: 'episode',
+    type: 'array',
     overflow: true,
   },
 ];

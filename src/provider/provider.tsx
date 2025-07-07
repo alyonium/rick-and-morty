@@ -1,7 +1,7 @@
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import type { ReactNode } from "react";
-import { BASE_URL } from "utils/const.ts";
-import { resolvers } from "./resolvers.ts";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import type { ReactNode } from 'react';
+import { BASE_URL } from 'utils/const.ts';
+import { resolvers } from './resolvers.ts';
 
 const client = new ApolloClient({
   uri: BASE_URL,

@@ -1,5 +1,5 @@
-import { Tooltip } from "@mui/material";
-import { StyledOverflowCell } from "./styles.ts";
+import { Tooltip } from '@mui/material';
+import { StyledOverflowCell } from './styles.ts';
 
 type OverflowCellProps = {
   content: string;

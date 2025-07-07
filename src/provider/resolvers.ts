@@ -1,6 +1,6 @@
-import { ApolloCache, gql } from "@apollo/client";
-import type { UpdatedCharacterType } from "modules/card/edit/convertData.ts";
-import type { NormalizedCacheObject } from "@apollo/client";
+import { ApolloCache, gql } from '@apollo/client';
+import type { UpdatedCharacterType } from 'modules/card/edit/convertData.ts';
+import type { NormalizedCacheObject } from '@apollo/client';
 
 export const resolvers = {
   Mutation: {

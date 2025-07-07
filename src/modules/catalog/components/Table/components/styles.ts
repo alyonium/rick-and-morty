@@ -1,5 +1,5 @@
-import { TableCell } from "@mui/material";
-import styled from "@emotion/styled";
+import { TableCell } from '@mui/material';
+import styled from '@emotion/styled';
 
 export const StyledOverflowCell = styled(TableCell)`
   max-width: 200px;

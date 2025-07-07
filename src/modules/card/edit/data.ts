@@ -1,33 +1,33 @@
 export const GenderOptions = [
   {
     value: 1,
-    label: "Female",
+    label: 'Female',
   },
   {
     value: 2,
-    label: "Genderless",
+    label: 'Genderless',
   },
   {
     value: 3,
-    label: "Male",
+    label: 'Male',
   },
   {
     value: 4,
-    label: "unknown",
+    label: 'unknown',
   },
 ];
 
 export const StatusOptions = [
   {
     value: 1,
-    label: "Alive",
+    label: 'Alive',
   },
   {
     value: 2,
-    label: "Dead",
+    label: 'Dead',
   },
   {
     value: 3,
-    label: "unknown",
+    label: 'unknown',
   },
 ];

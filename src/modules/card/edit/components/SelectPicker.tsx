@@ -3,8 +3,8 @@ import {
   Select as BaseSelect,
   MenuItem,
   InputLabel,
-} from "@mui/material";
-import type { SelectProps } from "@mui/material";
+} from '@mui/material';
+import type { SelectProps } from '@mui/material';
 
 export type OptionType = {
   label: string;

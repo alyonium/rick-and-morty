@@ -1,23 +1,23 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
-import { BASE_URL } from "utils/const";
+import type { CodegenConfig } from '@graphql-codegen/cli';
+import { BASE_URL } from 'utils/const';
 
 const config: CodegenConfig = {
   schema: BASE_URL,
   documents: [
-    "src/**/*.ts?(x)",
-    "!src/api/mutations/card/updateCharacterPage.ts",
+    'src/**/*.ts?(x)',
+    '!src/api/mutations/card/updateCharacterPage.ts',
   ],
   overwrite: true,
   config: {
     avoidOptionals: true,
     namingConvention: {
-      enumValues: "keep",
+      enumValues: 'keep',
     },
-    maybeValue: "T",
+    maybeValue: 'T',
   },
   generates: {
-    "./src/api/__generated__/graphql.ts": {
-      plugins: ["typescript", "typescript-operations"],
+    './src/api/__generated__/graphql.ts': {
+      plugins: ['typescript', 'typescript-operations'],
     },
   },
 };

@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 import type {
   Character,
   GetCharactersQuery,
-} from "api/__generated__/graphql.ts";
-import { GET_CHARACTERS } from "api/queries/catalog/charactersTable.ts";
+} from 'api/__generated__/graphql.ts';
+import { GET_CHARACTERS } from 'api/queries/catalog/charactersTable.ts';
 import {
   Table,
   TableHead,
@@ -11,22 +11,22 @@ import {
   TableCell,
   CircularProgress,
   Typography,
-} from "@mui/material";
-import { COLUMNS } from "./columns.ts";
-import { Filter } from "./components/Filter/Filter.tsx";
-import { useMemo } from "react";
-import { DEFAULT_PAGE, DEFAULT_SEARCH } from "utils/const.ts";
-import { Table as TableContent } from "./components/Table/Table.tsx";
-import { Pagination } from "./components/Pagination/Pagination.tsx";
+} from '@mui/material';
+import { COLUMNS } from './columns.ts';
+import { Filter } from './components/Filter/Filter.tsx';
+import { useMemo } from 'react';
+import { DEFAULT_PAGE, DEFAULT_SEARCH } from 'utils/const.ts';
+import { Table as TableContent } from './components/Table/Table.tsx';
+import { Pagination } from './components/Pagination/Pagination.tsx';
 import {
   StyledContentWrapper,
   StyledContainer,
   StyledTableBody,
   StyledTableContainer,
-} from "./styles.ts";
-import PageWrapper from "components/PageWrapper/PageWrapper.tsx";
-import { useLocation, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+} from './styles.ts';
+import PageWrapper from 'components/PageWrapper/PageWrapper.tsx';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // MUI table first page = 0; API first page = 1
 const CatalogPage = () => {
@@ -57,7 +57,7 @@ const CatalogPage = () => {
       });
       return;
     }
-  }, [location.state]);
+  }, [setSearchParams, location.state]);
 
   const { loading, error, data, refetch } = useQuery<GetCharactersQuery>(
     GET_CHARACTERS,
@@ -65,12 +65,12 @@ const CatalogPage = () => {
       variables: {
         page:
           location.state?.catalogPage ||
-          (searchParams.get("catalogPage") &&
-            +(searchParams.get("catalogPage") as string) + 1) ||
+          (searchParams.get('catalogPage') &&
+            +(searchParams.get('catalogPage') as string) + 1) ||
           DEFAULT_PAGE + 1,
         name:
           location.state?.search ||
-          searchParams.get("search") ||
+          searchParams.get('search') ||
           DEFAULT_SEARCH,
       },
     },
@@ -82,7 +82,7 @@ const CatalogPage = () => {
     }
 
     const updateFromLocalStorageData = data?.characters?.results?.map(
-      (item: Pick<Character, "id">) => {
+      (item: Pick<Character, 'id'>) => {
         const character = localStorage.getItem(`character:${item?.id}`);
 
         if (character) {
@@ -175,13 +175,13 @@ const CatalogPage = () => {
               onPageChange={(page: number) => {
                 setSearchParams({
                   catalogPage: `${page}`,
-                  search: searchParams.get("search") || DEFAULT_SEARCH,
+                  search: searchParams.get('search') || DEFAULT_SEARCH,
                 });
-                updateTable(page, searchParams.get("search") || DEFAULT_SEARCH);
+                updateTable(page, searchParams.get('search') || DEFAULT_SEARCH);
               }}
               currentPage={
-                (searchParams.get("catalogPage") &&
-                  +(searchParams.get("catalogPage") as string)) ||
+                (searchParams.get('catalogPage') &&
+                  +(searchParams.get('catalogPage') as string)) ||
                 DEFAULT_PAGE
               }
             />

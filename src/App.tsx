@@ -1,14 +1,14 @@
-import AppRouter from "./router/AppRouter.tsx";
-import { BrowserRouter } from "react-router-dom";
-import { createTheme } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
-import { green, yellow } from "@mui/material/colors";
-import { CssBaseline } from "@mui/material";
-import { Global, css } from "@emotion/react";
+import AppRouter from './router/AppRouter.tsx';
+import { BrowserRouter } from 'react-router-dom';
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
+import { green, yellow } from '@mui/material/colors';
+import { CssBaseline } from '@mui/material';
+import { Global, css } from '@emotion/react';
 
 const theme = createTheme({
   palette: {
-    mode: "dark",
+    mode: 'dark',
     primary: {
       main: green[500],
     },
@@ -16,7 +16,7 @@ const theme = createTheme({
       main: yellow[500],
     },
     background: {
-      default: "#14181b",
+      default: '#14181b',
     },
   },
 });

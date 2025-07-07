@@ -1,4 +1,4 @@
-import { TablePagination } from "@mui/material";
+import { TablePagination } from '@mui/material';
 
 type PaginationProps = {
   count: number;
