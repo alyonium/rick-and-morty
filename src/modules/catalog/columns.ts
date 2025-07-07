@@ -2,6 +2,13 @@ import type { Character } from "../../api/__generated__/graphql.ts";
 
 type CellType = "string" | "array" | "object";
 
+export type ObjectType = {
+  id: string;
+  name: string;
+};
+
+export type ArrayType = ObjectType[];
+
 type ColumnType = {
   fieldName: string;
   fieldKey: keyof Character;

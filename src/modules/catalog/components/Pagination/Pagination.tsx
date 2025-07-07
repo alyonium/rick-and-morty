@@ -15,7 +15,7 @@ export const Pagination = ({
     <TablePagination
       component="div"
       count={count}
-      onPageChange={(e, pageNumber) => onPageChange(pageNumber)}
+      onPageChange={(_, pageNumber) => onPageChange(pageNumber)}
       page={currentPage}
       rowsPerPage={20}
       rowsPerPageOptions={[20]}

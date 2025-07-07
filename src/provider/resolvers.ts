@@ -1,10 +1,16 @@
-import { gql } from "@apollo/client";
+import { ApolloCache, gql } from "@apollo/client";
+import type { UpdatedCharacterType } from "../modules/card/edit/convertData.ts";
+import type { NormalizedCacheObject } from "@apollo/client";
 
 export const resolvers = {
   Mutation: {
-    updateCharacterLocal: (_, { id, updatedData }, { cache }) => {
+    updateCharacterLocal: (
+      _: unknown,
+      { id, updatedData }: { id: number; updatedData: UpdatedCharacterType },
+      { cache }: { cache: ApolloCache<NormalizedCacheObject> },
+    ) => {
       const fragment = gql(`
-            fragment CharacterFields on character {
+            fragment CharacterFields on Character {
                 id
                 name
                 species
@@ -27,18 +33,32 @@ export const resolvers = {
         fragment,
       });
 
-      const updatedCharacter = {
-        ...existingCharacter,
-        ...updatedData,
-      };
+      if (!existingCharacter) {
+        const updatedCharacter = {
+          ...updatedData,
+        };
 
-      cache.writeFragment({
-        id: characterId,
-        fragment,
-        data: updatedCharacter,
-      });
+        cache.writeFragment({
+          id: characterId,
+          fragment,
+          data: updatedCharacter,
+        });
 
-      return updatedCharacter;
+        return updatedCharacter;
+      } else {
+        const updatedCharacter = {
+          ...existingCharacter,
+          ...updatedData,
+        };
+
+        cache.writeFragment({
+          id: characterId,
+          fragment,
+          data: updatedCharacter,
+        });
+
+        return updatedCharacter;
+      }
     },
   },
 };

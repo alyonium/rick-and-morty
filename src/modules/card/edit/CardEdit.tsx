@@ -24,16 +24,26 @@ const CardEdit = ({ defaultData }: CardEditProps) => {
     initialValues: convertDataToFrontend(defaultData),
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const updatedCharacter = convertDataToBackend(values);
+      const updatedCharacter = convertDataToBackend({
+        name: values.name as string,
+        species: values.species as string,
+        status: values.status as number,
+        gender: values.gender as number,
+      });
 
-      const character = JSON.parse(
-        localStorage.getItem(`character:${defaultData.id}`),
-      );
+      const character = localStorage.getItem(`character:${defaultData.id}`)
+        ? JSON.parse(
+            localStorage.getItem(`character:${defaultData.id}`) as string,
+          )
+        : null;
 
       updateCharacterLocal({
         variables: {
           id: defaultData.id,
-          updatedData: { ...updatedCharacter },
+          name: updatedCharacter.name,
+          species: updatedCharacter.species,
+          status: updatedCharacter.status,
+          gender: updatedCharacter.gender,
         },
       });
 

@@ -74,7 +74,7 @@ const CardView = ({ data }: CardViewProps) => {
           value={convertedData?.location}
           options={[
             {
-              value: convertedData?.location,
+              value: convertedData?.location as number,
               label: data?.location?.name,
             },
           ]}

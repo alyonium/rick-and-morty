@@ -1,6 +1,6 @@
 import type { Character } from "../../../../api/__generated__/graphql.ts";
 import { TableCell } from "@mui/material";
-import { COLUMNS } from "../../columns.ts";
+import { COLUMNS, type ObjectType, type ArrayType } from "../../columns.ts";
 import { OverflowCell } from "./components/OverflowCell.tsx";
 import { StyledTableRow } from "./styles.ts";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -24,35 +24,33 @@ export const Table = ({ data }: TableProps) => {
             onClick={() => {
               navigate(`${ROUTE.CARD_VIEW}/${row.id}`, {
                 state: {
-                  catalogPage: +searchParams.get("catalogPage"),
+                  catalogPage:
+                    searchParams.get("catalogPage") &&
+                    +(searchParams.get("catalogPage") as string),
                   search: searchParams.get("search") || DEFAULT_SEARCH,
                 },
               });
             }}
           >
             {COLUMNS.map((col) => {
-              let content = undefined;
+              let content: string = "";
 
               if (col.type === "string") {
-                content = row[col.fieldKey];
+                content = row[col.fieldKey] as string;
               }
 
               if (col.type === "object") {
-                content = row[col.fieldKey]?.name;
+                content = (row[col.fieldKey] as ObjectType)?.name as string;
               }
 
               if (col.type === "array") {
-                content = row[col.fieldKey]
-                  ?.map((item) => item.name)
-                  .join(", ");
+                content = (row[col.fieldKey] as ArrayType)
+                  ?.map((item: ObjectType) => item.name)
+                  .join(", ") as string;
               }
 
               if (col.overflow) {
-                return (
-                  <OverflowCell key={`${col.fieldKey}-${row.id}`}>
-                    {content}
-                  </OverflowCell>
-                );
+                return <OverflowCell content={content} />;
               }
 
               return (

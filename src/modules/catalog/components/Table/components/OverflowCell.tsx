@@ -2,13 +2,13 @@ import { Tooltip } from "@mui/material";
 import { StyledOverflowCell } from "./styles.ts";
 
 type OverflowCellProps = {
-  children: string;
+  content: string;
 };
 
-export const OverflowCell = ({ children }: OverflowCellProps) => {
+export const OverflowCell = ({ content }: OverflowCellProps) => {
   return (
-    <Tooltip title={children} arrow placement="top">
-      <StyledOverflowCell>{children}</StyledOverflowCell>
+    <Tooltip title={content} arrow placement="top">
+      <StyledOverflowCell>{content}</StyledOverflowCell>
     </Tooltip>
   );
 };

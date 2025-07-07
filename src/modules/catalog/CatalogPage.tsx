@@ -65,7 +65,8 @@ const CatalogPage = () => {
       variables: {
         page:
           location.state?.catalogPage ||
-          +searchParams.get("catalogPage") + 1 ||
+          (searchParams.get("catalogPage") &&
+            +(searchParams.get("catalogPage") as string) + 1) ||
           DEFAULT_PAGE + 1,
         name:
           location.state?.search ||
@@ -85,9 +86,11 @@ const CatalogPage = () => {
         const character = localStorage.getItem(`character:${item?.id}`);
 
         if (character) {
-          const editedCharacter = JSON.parse(
-            localStorage.getItem(`character:${item?.id}`),
-          );
+          const editedCharacter = localStorage.getItem(`character:${item?.id}`)
+            ? JSON.parse(
+                localStorage.getItem(`character:${item?.id}`) as string,
+              )
+            : null;
 
           return {
             ...item,
@@ -174,7 +177,11 @@ const CatalogPage = () => {
             });
             updateTable(page, searchParams.get("search") || DEFAULT_SEARCH);
           }}
-          currentPage={+searchParams.get("catalogPage") || DEFAULT_PAGE}
+          currentPage={
+            (searchParams.get("catalogPage") &&
+              +(searchParams.get("catalogPage") as string)) ||
+            DEFAULT_PAGE
+          }
         />
       </StyledContainer>
     </PageWrapper>

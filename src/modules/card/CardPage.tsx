@@ -27,7 +27,9 @@ const CardPage = () => {
       return null;
     }
 
-    const character = JSON.parse(localStorage.getItem(`character:${cardId}`));
+    const character = localStorage.getItem(`character:${cardId}`)
+      ? JSON.parse(localStorage.getItem(`character:${cardId}`) as string)
+      : null;
 
     if (character) {
       return {
