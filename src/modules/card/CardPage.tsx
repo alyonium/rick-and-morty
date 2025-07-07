@@ -39,7 +39,7 @@ const CardPage = () => {
     } else {
       return data?.character;
     }
-  }, [data, cardId]);
+  }, [data, cardMode, cardId]);
 
   if (error || data?.character === null) {
     return (
