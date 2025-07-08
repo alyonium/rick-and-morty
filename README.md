@@ -40,7 +40,7 @@ Edited data is stored locally using local storage. As API doesn't allow to modif
 
 ### Requirements:
 
-- node.js version >= 14.0.0
+- node.js version >= 20.0.0
 
 ### Commands:
 
