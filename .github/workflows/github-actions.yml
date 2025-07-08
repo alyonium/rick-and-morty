@@ -19,4 +19,12 @@ jobs:
         run: npm run build
       - name: Lint code
         run: npm run lint
+  deployment:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Predeploy app
+        run: npm run predeploy
+      - name: Deploy app
+        run: npm run deploy
 
