@@ -1,6 +1,10 @@
 {
   "name": "rick-and-morty",
   "homepage": "https://alyonium.github.io/rick-and-morty",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alyonium/rick-and-morty.git"
+  },
   "private": true,
   "version": "0.0.0",
   "type": "module",
