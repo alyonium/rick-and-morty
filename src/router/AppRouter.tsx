@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ROUTE } from './const.ts';
-import CatalogPage from 'modules/catalog/CatalogPage.tsx';
-import CardPage from 'modules/card/CardPage.tsx';
+import CatalogPage from 'pages/CatalogPage.tsx';
+import CardPage from 'pages/CardPage.tsx';
 
 const AppRouter = () => {
   return (

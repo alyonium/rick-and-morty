@@ -1,4 +1,4 @@
-import { TablePagination } from '@mui/material';
+import { TablePagination as Pagination } from '@mui/material';
 
 type PaginationProps = {
   count: number;
@@ -6,13 +6,14 @@ type PaginationProps = {
   onPageChange: (page: number) => void;
 };
 
-export const Pagination = ({
+// MUI table first page = 0; API first page = 1
+export const TablePagination = ({
   count,
   currentPage,
   onPageChange,
 }: PaginationProps) => {
   return (
-    <TablePagination
+    <Pagination
       component="div"
       count={count}
       onPageChange={(_, pageNumber) => onPageChange(pageNumber)}

@@ -1,4 +1,4 @@
-import { Stack, Button } from '@mui/material';
+import { Stack } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const StyledStack = styled(Stack)`
@@ -12,8 +12,4 @@ export const StyledStack = styled(Stack)`
   @media (max-width: 600px) {
     width: 300px;
   }
-`;
-
-export const StyledButton = styled(Button)`
-  width: 50%;
 `;

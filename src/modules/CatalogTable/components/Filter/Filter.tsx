@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { type ChangeEvent, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { DEFAULT_SEARCH } from 'utils/const.ts';
@@ -14,27 +14,20 @@ export const Filter = ({ onSearch }: FilterProps) => {
   const [input, setInput] = useState<string>(
     location.state?.search || searchParams.get('search') || DEFAULT_SEARCH,
   );
-  const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
-  const debouncedLog = useMemo(
+  const debouncedSearch = useMemo(
     () =>
       debounce((value: string) => {
         onSearch(value);
       }, 400),
-    [],
+    [onSearch],
   );
 
-  useEffect(() => {
-    if (!isValueChanged) {
-      return;
-    }
-
-    debouncedLog(input);
-
-    return () => {
-      debouncedLog.cancel();
-    };
-  }, [input]);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const value = e.target.value;
+    setInput(value);
+    debouncedSearch(value);
+  };
 
   return (
     <TextField
@@ -43,10 +36,7 @@ export const Filter = ({ onSearch }: FilterProps) => {
       variant="outlined"
       placeholder="Search"
       value={input}
-      onChange={(e) => {
-        setIsValueChanged(true);
-        setInput(e.target.value);
-      }}
+      onChange={handleChange}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { Container, Paper, TableBody } from '@mui/material';
+import { Container } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const StyledContainer = styled(Container)`
@@ -8,19 +8,10 @@ export const StyledContainer = styled(Container)`
   overflow: hidden;
 `;
 
-export const StyledTableContainer = styled(Paper)`
-  height: 400px;
-  overflow: auto;
-`;
-
 export const StyledContentWrapper = styled.div`
-  height: 400px;
+  height: 500px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-export const StyledTableBody = styled(TableBody)`
-  overflow: scroll;
 `;

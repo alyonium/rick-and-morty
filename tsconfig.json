@@ -9,6 +9,7 @@
       "assets/*":["./src/assets/*"],
       "components/*":["./src/components/*"],
       "modules/*":["./src/modules/*"],
+      "pages/*":["./src/pages/*"],
       "provider/*":["./src/provider/*"],
       "router/*":["./src/router/*"],
       "utils/*":["./src/utils/*"],

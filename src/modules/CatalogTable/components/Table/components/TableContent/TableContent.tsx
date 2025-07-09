@@ -1,32 +1,36 @@
-import type { Character } from 'api/__generated__/graphql.ts';
 import { TableCell } from '@mui/material';
-import { COLUMNS, type ObjectType, type ArrayType } from '../../columns.ts';
-import { OverflowCell } from './components/OverflowCell.tsx';
-import { StyledTableRow } from './styles.ts';
+import {
+  COLUMNS,
+  type ObjectType,
+  type ArrayType,
+} from 'modules/CatalogTable/components/Table/consts/columns.ts';
+import { OverflowCell } from '../OverflowCell/OverflowCell.tsx';
+import { StyledTableBody, StyledTableRow } from './styles.ts';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ROUTE } from 'router/const.ts';
 import { DEFAULT_SEARCH } from 'utils/const.ts';
+import type { SelectedCharacterFields } from 'src/types/types.ts';
 
-type TableProps = {
-  data: Character[];
+type TableContentProps = {
+  data: SelectedCharacterFields[];
 };
 
-export const Table = ({ data }: TableProps) => {
+export const TableContent = ({ data }: TableContentProps) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   return (
-    <>
-      {data.map((row: Character) => {
+    <StyledTableBody>
+      {data.map((row: SelectedCharacterFields) => {
         return (
           <StyledTableRow
             key={row.id}
             onClick={() => {
               navigate(`${ROUTE.CARD_VIEW}/${row.id}`, {
                 state: {
-                  catalogPage:
-                    searchParams.get('catalogPage') &&
-                    +(searchParams.get('catalogPage') as string),
+                  page:
+                    searchParams.get('page') &&
+                    +(searchParams.get('page') as string),
                   search: searchParams.get('search') || DEFAULT_SEARCH,
                 },
               });
@@ -67,6 +71,6 @@ export const Table = ({ data }: TableProps) => {
           </StyledTableRow>
         );
       })}
-    </>
+    </StyledTableBody>
   );
 };

@@ -1,5 +1,5 @@
 import { ApolloCache, gql } from '@apollo/client';
-import type { UpdatedCharacterType } from 'modules/card/edit/convertData.ts';
+import type { UpdatedCharacterType } from 'modules/Card/components/CardEdit/utils/convertData.ts';
 import type { NormalizedCacheObject } from '@apollo/client';
 
 export const resolvers = {
