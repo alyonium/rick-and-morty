@@ -64,29 +64,32 @@ const CatalogTable = () => {
     };
   };
 
-  const updateTable = useCallback((page: number, searchValue: string) => {
-    updateParams({
-      page: `${page}`,
-      search: searchValue,
-    });
-    refetch({
-      page: page + 1,
-      name: searchValue,
-    });
-  }, []);
+  const updateTable = useCallback(
+    (page: number, searchValue: string) => {
+      updateParams({
+        page: `${page}`,
+        search: searchValue,
+      });
+      refetch({
+        page: page + 1,
+        name: searchValue,
+      });
+    },
+    [refetch, updateParams],
+  );
 
   const onSearch = useCallback(
     (searchValue: string) => {
       updateTable(DEFAULT_PAGE, searchValue);
     },
-    [updateParams, updateTable],
+    [updateTable],
   );
 
   const onPageChange = useCallback(
     (page: number) => {
       updateTable(page, currentSearch || DEFAULT_SEARCH);
     },
-    [updateParams, updateTable],
+    [updateTable, currentSearch],
   );
 
   if (error) {
