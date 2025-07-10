@@ -85,12 +85,9 @@ const CatalogTable = () => {
     [updateTable],
   );
 
-  const onPageChange = useCallback(
-    (page: number) => {
-      updateTable(page, currentSearch || DEFAULT_SEARCH);
-    },
-    [updateTable, currentSearch],
-  );
+  const onPageChange = (page: number) => {
+    updateTable(page, currentSearch || DEFAULT_SEARCH);
+  };
 
   if (error) {
     return (
